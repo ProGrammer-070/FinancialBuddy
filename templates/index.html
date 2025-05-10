@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+
+{% block title %}Home - Smart Financial Buddy{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-7 col-md-9">
+        <div class="card shadow-lg animate__animated animate__fadeIn">
+            <div class="card-header d-flex align-items-center">
+                <h2 class="text-center mb-0 flex-grow-1">Your Financial Profile</h2>
+                <button class="info-btn" data-info="Fill in your income, expenses, and goals. Optionally upload a CSV or text file with your expenses. Click 'Get Financial Advice' for personalized tips."></button>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="{{ url_for('submit') }}" enctype="multipart/form-data">
+                    {{ form.csrf_token }}
+                    <div class="mb-4">
+                        <h4 class="text-primary d-flex align-items-center">
+                            Income
+                            <button class="info-btn" data-info="Enter your total monthly income after taxes."></button>
+                        </h4>
+                        <div class="form-group">
+                            {{ form.monthly_income.label(class="form-label") }}
+                            <div class="input-group">
+                                <span class="input-group-text">{{ currency_symbol }}</span>
+                                {{ form.monthly_income(class="form-control", placeholder="Enter your monthly income") }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <h4 class="text-primary d-flex align-items-center">
+                            Expenses
+                            <button class="info-btn" data-info="Break down your monthly expenses by category."></button>
+                        </h4>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                {{ form.housing_expense.label(class="form-label") }}
+                                <div class="input-group">
+                                    <span class="input-group-text">{{ currency_symbol }}</span>
+                                    {{ form.housing_expense(class="form-control", placeholder="Housing expenses") }}
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                {{ form.utilities_expense.label(class="form-label") }}
+                                <div class="input-group">
+                                    <span class="input-group-text">{{ currency_symbol }}</span>
+                                    {{ form.utilities_expense(class="form-control", placeholder="Utilities expenses") }}
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                {{ form.groceries_expense.label(class="form-label") }}
+                                <div class="input-group">
+                                    <span class="input-group-text">{{ currency_symbol }}</span>
+                                    {{ form.groceries_expense(class="form-control", placeholder="Groceries expenses") }}
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                {{ form.other_expenses.label(class="form-label") }}
+                                <div class="input-group">
+                                    <span class="input-group-text">{{ currency_symbol }}</span>
+                                    {{ form.other_expenses(class="form-control", placeholder="Other expenses") }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <h4 class="text-primary d-flex align-items-center">
+                            Savings Goals
+                            <button class="info-btn" data-info="Set your short-term and long-term savings goals."></button>
+                        </h4>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                {{ form.short_term_goal.label(class="form-label") }}
+                                {{ form.short_term_goal(class="form-control", placeholder="e.g., Save for vacation") }}
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                {{ form.long_term_goal.label(class="form-label") }}
+                                {{ form.long_term_goal(class="form-control", placeholder="e.g., Save for retirement") }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <h4 class="text-primary d-flex align-items-center">
+                            Additional Information
+                            <button class="info-btn" data-info="Upload a CSV or text file with your expense summary for more accurate advice."></button>
+                        </h4>
+                        <div class="form-group">
+                            {{ form.expense_file.label(class="form-label") }}
+                            {{ form.expense_file(class="form-control") }}
+                            <small class="form-text text-muted">Upload your expense summary (CSV or text file)</small>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        {{ form.submit(class="btn btn-primary btn-lg animate__animated animate__pulse") }}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
